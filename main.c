@@ -9,22 +9,22 @@ void
 format (const char *phrase)
 {
   printf ("\n");
-  printf ("\t\033[1m%s\033[0m", phrase);
+  printf ("\t%s", phrase);
 }
 
 void
-makephrase (char *variante, double chiffre)
+makephrase (char *string, double chiffre)
 {
-  char *phrase = malloc (sizeof *phrase * 100);
+  char *phrase = malloc (100);
   if (phrase == NULL)
     {
-      perror ("erreur");
+      perror ("malloc");
     }
   else
     {
-      memset (phrase, 0, sizeof *phrase * 100);
-      strcat (phrase, "Prix de ");
-      strcat (phrase, variante);
+      memset (phrase, 0, 100);
+      memcpy (phrase, "Prix de ",8);
+      strcat (phrase, string);
       char nombre[30];
       sprintf (nombre, "%.3f €/ml", chiffre);
       strcat (phrase, nombre);
