@@ -23,7 +23,7 @@ makephrase (char *string, double chiffre)
   else
     {
       memset (phrase, 0, 100);
-      memcpy (phrase, "Prix de ",8);
+      memcpy (phrase, "Prix de ", 8);
       strcat (phrase, string);
       char nombre[30];
       sprintf (nombre, "%.3f €/ml", chiffre);
