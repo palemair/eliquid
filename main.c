@@ -19,7 +19,7 @@ souligne (const char *phrase)
 
 
 void
-format (char *variante, double chiffre)
+format (const char *variante, double chiffre)
 {
   char phrase[100] ="";
   memcpy(phrase,variante,strlen(variante));
@@ -31,7 +31,7 @@ int
 main (void)
 {
   const char *texte[] = {
-    "CALCULATEUR DE ELIQUIDE",
+    "CALCULATEUR DE E-LIQUIDE",
     "Prix de ",
     "Entrez la quantité de eliquide souhaitée en ml : ",
     "Entrez la dose de nicotine souhaitée en mg/ml : "
@@ -40,13 +40,9 @@ main (void)
 
   const struct prix tarif = { 0.075, 0.0099, 0.39 };
 
-  int ret = setupterm (NULL, STDOUT_FILENO, NULL);
   int liquide = 0;
   int dosenicotine = 0;
 
-  if (ret == 0)
-
-    {
       souligne (texte[0]);
 
       printf("\t%sla base       : %5.2f €/L\n",texte[1],tarif.base);
@@ -79,14 +75,13 @@ main (void)
       printf("\tBooster  : %5.2u\n", reponse.nicotine);
       printf("\tArome    : %5.2u\n", (unsigned char)reponse.arome);
 
-      printf ("\n\n\t\033[1;41m %d ml de base\033[0m\n", reponse.base);
-      printf ("\n\t\033[1;41m %2d boosters de nicotine\033[0m\n", reponse.nicotine / 10);
-      printf ("\n\t\033[1;41m %.2f flacons d'arome\033[0m\n", reponse.arome / 10);
+      printf ("\n\n\t\033[1;41m %d ml de base\033[0m | ", reponse.base);
+      printf ("\033[1;41m %2d boosters de nicotine\033[0m | ", reponse.nicotine / 10);
+      printf ("\033[1;41m %.2f flacons d'arome\033[0m\n", reponse.arome / 10);
 
       format (" Prix total      : ", total);
       format (" Prix de revient : ", total / (float) reponse.eliquide);
-
-    }
+      printf("\n");
 
   return (0);
 }
